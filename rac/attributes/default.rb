@@ -33,7 +33,7 @@ default[:oracle][:grid][:scan][:port]= '1623'
 default[:oracle][:grid][:cluster][:name]= 'red-cluster'
 default[:oracle][:grid][:cluster][:node1]= {'name' => 'red1', 'vip' => 'red1-vip'}
 default[:oracle][:grid][:cluster][:node2]= {'name' => 'red2', 'vip' => 'red2-vip'}
-default[:oracle][:grid][:cluster][:eth0_inter] = '10.69.0.0'
+default[:oracle][:grid][:cluster][:eth0_inter] = '10.69.2.0'
 default[:oracle][:grid][:cluster][:eth1_inter] = '172.168.1.0'
 default[:oracle][:grid][:cluster][:dg_name] = 'GRID_DG'
 default[:oracle][:grid][:cluster][:ocr_dg] = '/dev/asm-diskb,/dev/asm-diskc,/dev/asm-diskd'
@@ -67,7 +67,7 @@ default[:oracle][:rdbms][:db_create_template] = 'default_template.dbt'
 # CentOS 6.4, which is the minimum version targeted by oracle.
 default[:oracle][:rdbms][:deps] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
                                    'glibc-devel', 'ksh', 'libgcc', 'libstdc++', 'libstdc++-devel', 'libaio',
-                                   'libaio-devel', 'make', 'sysstat']
+                                   'libaio-devel', 'make', 'sysstat','cvuqdisk']
 
 # Oracle dependencies for 12c
 default[:oracle][:rdbms][:deps_12c] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
@@ -76,6 +76,9 @@ default[:oracle][:rdbms][:deps_12c] = ['binutils', 'compat-libcap1', 'compat-lib
 
 # Oracle environment for 11g
 default[:oracle][:rdbms][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],
+                                  'ORACLE_HOME' => node[:oracle][:rdbms][:ora_home],
+                                  'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
+default[:oracle][:grid][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],
                                   'ORACLE_HOME' => node[:oracle][:rdbms][:ora_home],
                                   'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
 
