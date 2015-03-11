@@ -21,11 +21,11 @@ default[:oracle][:user][:gid] = 201
 default[:oracle][:user][:shell] = '/bin/ksh'
 default[:oracle][:user][:sup_grps] = {'dba' => 202,'asmdba'=> 5001}
 default[:oracle][:user][:pw_set] = false
+default[:oracle][:gird][:pw_set] = false
 #default[:oracle][:user][:edb] = 'oracle'
 #default[:oracle][:user][:edb_item] = 'foo'
 default[:oracle][:user][:pw]='oracle'
 default[:oracle][:grid][:uid]= 301
-default[:oracle][:grid][:gid]= 301
 default[:oracle][:grid][:sup_grps]= {'asmadmin' =>5000, 'asmdba'=> 5001,'asmoper'=>5002}
 default[:oracle][:grid][:pw]='grid'
 default[:oracle][:grid][:scan][:name]= 'red-cluster-scan'

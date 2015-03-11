@@ -29,9 +29,17 @@ end
 
 user 'grid' do
   uid node[:oracle][:grid][:uid]
-  gid node[:oracle][:grid][:gid]
+  gid node[:oracle][:oracle][:gid]
   shell node[:oracle][:user][:shell]
   comment 'RAC Administrator'
+  supports :manage_home => true
+end
+
+user 'oracle' do
+  uid node[:oracle][:user][:uid]
+  gid node[:oracle][:user][:gid]
+  shell node[:oracle][:user][:shell]
+  comment 'Oracle Administrator'
   supports :manage_home => true
 end
 
@@ -40,7 +48,7 @@ yum_package File.basename(node[:oracle][:user][:shell])
 # Configure the oracle user.
 # Make it a member of the appropriate supplementary groups, and
 # ensure its environment will be set up properly upon login.
-node[:oracle][:user][:sup_grps].each_key do |grp|
+node[:oracle][:grid][:sup_grps].each_key do |grp|
   group grp do
     gid node[:oracle][:grid][:sup_grps][grp]
     members ['grid']
@@ -60,6 +68,21 @@ template "/home/grid/.profile" do
     )
 end
 
+node[:oracle][:user][:sup_grps].each_key do |grp|
+  group grp do
+    gid node[:oracle][:user][:sup_grps][grp]
+    members ['oracle']
+    append true
+  end
+end
+
+template "/home/oracle/.profile" do
+  action :create_if_missing
+  source 'ora_profile.erb'
+  owner 'oracle'
+  group 'oinstall'
+end
+
 # Color setup for ls.
 execute 'gen_dir_colors' do
   command '/usr/bin/dircolors -p > /home/grid/.dir_colors'
@@ -68,6 +91,33 @@ execute 'gen_dir_colors' do
   cwd '/home/grid'
   creates '/home/gird/.dir_colors'
   only_if {node[:oracle][:user][:shell] != '/bin/bash'}
+end
+
+execute 'gen_dir_colors' do
+  command '/usr/bin/dircolors -p > /home/oracle/.dir_colors'
+  user 'oracle'
+  group 'oinstall'
+  cwd '/home/oracle'
+  creates '/home/oracle/.dir_colors'
+  only_if {node[:oracle][:user][:shell] != '/bin/bash'}
+end
+
+# Set the oracle user's password.
+unless node[:oracle][:grid][:pw_set]
+#  ora_edb_item = Chef::EncryptedDataBagItem.load(node[:oracle][:user][:edb], node[:oracle][:user][:edb_item])
+  ora_pw = node[:oracle][:grid][:pw]
+
+  # Note that output formatter will display the password on your terminal.
+  execute 'change_grid_user_pw' do
+    command "echo grid:#{ora_pw} | /usr/sbin/chpasswd"
+  end
+  
+  ruby_block 'set_pw_attr' do
+    block do
+      node.set[:oracle][:grid][:pw_set] = true
+    end
+    action :create
+  end
 end
 
 # Set the oracle user's password.
@@ -87,6 +137,7 @@ unless node[:oracle][:user][:pw_set]
     action :create
   end
 end
+
 
 # Set resource limits for the  user.
 cookbook_file '/etc/security/limits.conf' do
