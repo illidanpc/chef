@@ -4,7 +4,7 @@ Description
 Installs and configures the Oracle RDBMS, patches it to the latest
 version and creates databases.
 
-New features on v1.2.0
+New features on v1.0.0
 
 * Oracle 12c Release 1 support with DBEXPRESS
 
@@ -12,7 +12,7 @@ New features on v1.2.0
 
 Tested with an Open Source Chef Server/Chef Client combo only.
 
-Oracle version 11.2.0.3 was used to develop this cookbook, but the
+Oracle version 11.2.0.4 was used to develop this cookbook, but the
 code should work for other versions as well, with some
 modifications.
 

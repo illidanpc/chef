@@ -28,13 +28,26 @@ default[:oracle][:grid][:uid]= 301
 default[:oracle][:grid][:gid]= 301
 default[:oracle][:grid][:sup_grps]= {'asmadmin' =>5000, 'asmdba'=> 5001,'asmoper'=>5002}
 default[:oracle][:grid][:pw]='grid'
+default[:oracle][:grid][:scan][:name]= 'red-cluster-scan'
+default[:oracle][:grid][:scan][:port]= '1623'
+default[:oracle][:grid][:cluster][:name]= 'red-cluster'
+default[:oracle][:grid][:cluster][:node1]= {'name' => 'red1', 'vip' => 'red1-vip'}
+default[:oracle][:grid][:cluster][:node2]= {'name' => 'red2', 'vip' => 'red2-vip'}
+default[:oracle][:grid][:cluster][:eth0_inter] = '10.69.0.0'
+default[:oracle][:grid][:cluster][:eth1_inter] = '172.168.1.0'
+default[:oracle][:grid][:cluster][:dg_name] = 'GRID_DG'
+default[:oracle][:grid][:cluster][:ocr_dg] = '/dev/asm-diskb,/dev/asm-diskc,/dev/asm-diskd'
+default[:oracle][:grid][:cluster][:disk_string]= '/dev/asm*'
+
 
 # General Oracle settings.
 default[:oracle][:ora_base] = '/u01/app/oracle'
 default[:oracle][:ora_inventory] = '/u01/app/oraInventory'
 default[:oracle][:grid][:base] = '/g01/grid/app/grid'
-default[:oracle][:grid][:soft] = '/g01/grid/app/11.2.0/grid'
+default[:oracle][:grid][:p_base] = '/g01'
+default[:oracle][:grid][:home] = '/g01/grid/app/11.2.0/grid'
 default[:oracle][:grid][:inventory] = '/g01/grid/app/oraInventory'
+default[:oracle][:grid][:asm]='+ASM1'
 
 ## Settings specific to the Oracle RDBMS proper.
 default[:oracle][:rdbms][:dbbin_version] = '11g'
@@ -45,6 +58,7 @@ default[:oracle][:rdbms][:install_info] = {}
 default[:oracle][:rdbms][:install_dir] = "/s01"
 default[:oracle][:rdbms][:response_file_url] = ''
 default[:oracle][:rdbms][:db_create_template] = 'default_template.dbt'
+
 
 
 # Dependencies for Oracle 11.2.

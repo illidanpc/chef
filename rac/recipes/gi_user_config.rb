@@ -48,20 +48,25 @@ node[:oracle][:user][:sup_grps].each_key do |grp|
   end
 end
 
-template "/home/oracle/.profile" do
+template "/home/grid/.profile" do
   action :create_if_missing
-  source 'ora_profile.erb'
-  owner 'oracle'
+  source 'grid_profile.erb'
+  owner 'grid'
   group 'oinstall'
+  variables(
+    :crs_home=> node[:oracle][:grid][:home],
+    :p_base=> node[:oracle][:grid][:p_base],
+    :sid=> node[:oracle][:grid][:asm]
+    )
 end
 
 # Color setup for ls.
 execute 'gen_dir_colors' do
-  command '/usr/bin/dircolors -p > /home/oracle/.dir_colors'
-  user 'oracle'
+  command '/usr/bin/dircolors -p > /home/grid/.dir_colors'
+  user 'grid'
   group 'oinstall'
-  cwd '/home/oracle'
-  creates '/home/oracle/.dir_colors'
+  cwd '/home/grid'
+  creates '/home/gird/.dir_colors'
   only_if {node[:oracle][:user][:shell] != '/bin/bash'}
 end
 
@@ -83,8 +88,11 @@ unless node[:oracle][:user][:pw_set]
   end
 end
 
-# Set resource limits for the oracle user.
+# Set resource limits for the  user.
 cookbook_file '/etc/security/limits.conf' do
   mode '0644'
   source 'ora_limits'
 end
+
+
+# 

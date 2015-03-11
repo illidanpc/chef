@@ -140,13 +140,15 @@ if node[:oracle][:rdbms][:dbbin_version] == "11g"
   end
 
 else
- 
   bash 'run_rdbms_installer' do
     cwd "#{node[:oracle][:rdbms][:install_dir]}/database"
     environment (node[:oracle][:rdbms][:env_12c])
     code "sudo -Eu oracle ./runInstaller -showProgress -silent -waitforcompletion -ignoreSysPrereqs -responseFile #{node[:oracle][:rdbms][:install_dir]}/db12c.rsp -invPtrLoc #{node[:oracle][:ora_base]}/oraInst.loc"
     returns [0, 6]
   end
+ 
+
+
  
   execute 'root.sh_rdbms' do
     command "#{node[:oracle][:rdbms][:ora_home_12c]}/root.sh"

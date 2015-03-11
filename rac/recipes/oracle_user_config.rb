@@ -83,8 +83,5 @@ unless node[:oracle][:user][:pw_set]
   end
 end
 
-# Set resource limits for the oracle user.
-cookbook_file '/etc/security/limits.d/oracle.conf' do
-  mode '0644'
-  source 'ora_limits'
-end
+
+

@@ -57,7 +57,7 @@ ORACLE_HOSTNAME=red1.covtest.com
 # This is an optional parameter if installing on  
 # Windows based Operating System.
 #-------------------------------------------------------------------------------
-INVENTORY_LOCATION=<%= @INVENTORY_LOCATION %>
+INVENTORY_LOCATION=/g01/grid/app/oraInventory
 #-------------------------------------------------------------------------------
 # Specify the languages in which the components will be installed.             
 # 
@@ -110,12 +110,12 @@ oracle.install.option=CRS_CONFIG
 # Specify the complete path of the Oracle Base.
 #-------------------------------------------------------------------------------
 
-ORACLE_BASE= <%= @ORACLE_BASE %>
+ORACLE_BASE=/g01/grid/app/grid
 
 #-------------------------------------------------------------------------------
 # Specify the complete path of the Oracle Home.
 #-------------------------------------------------------------------------------
-ORACLE_HOME= <%= @ORACLE_HOME %>
+ORACLE_HOME=/g01/grid/app/11.2.0/grid
 
 ################################################################################
 #                                                                              #
@@ -153,13 +153,13 @@ oracle.install.asm.OSASM=asmadmin
 #-------------------------------------------------------------------------------
 # Specify a name for SCAN
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.gpnp.scanName= <%= @scan_name %>
+oracle.install.crs.config.gpnp.scanName=red-cluster-scan
 
 #-------------------------------------------------------------------------------
 # Specify a unused port number for SCAN service
 #-------------------------------------------------------------------------------
 
-oracle.install.crs.config.gpnp.scanPort= <%= @scan_port %>
+oracle.install.crs.config.gpnp.scanPort=1623
 
 ################################################################################
 #                                                                              #
@@ -173,7 +173,7 @@ oracle.install.crs.config.gpnp.scanPort= <%= @scan_port %>
 # any combination of lower and uppercase alphabets (A - Z), (0 - 9), hyphen(-)
 # and underscore(_).
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.clusterName= <%= @cluster_name %>
+oracle.install.crs.config.clusterName=red-cluster
 
 #-------------------------------------------------------------------------------
 # Specify 'true' if you would like to configure Grid Naming Service(GNS), else
@@ -209,7 +209,7 @@ oracle.install.crs.config.autoConfigureClusterNodeVIP=false
 #
 # Example: oracle.install.crs.config.clusterNodes=node1:node1-vip,node2:node2-vip
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.clusterNodes=<%= @node1_name %>:<%= @node1_vip %>,<%= @node2_name %>:<%= @node2_vip %>
+oracle.install.crs.config.clusterNodes=red1:red1-vip,red2:red2-vip
 
 #-------------------------------------------------------------------------------
 # The value should be a comma separated strings where each string is as shown below
@@ -220,7 +220,7 @@ oracle.install.crs.config.clusterNodes=<%= @node1_name %>:<%= @node1_vip %>,<%= 
 # For example: eth0:140.87.24.0:1,eth1:10.2.1.0:2,eth2:140.87.52.0:3
 #
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.networkInterfaceList=eth0:<%= @eth0_inter %>:1,eth1:<%= @eth1_inter %>:2
+oracle.install.crs.config.networkInterfaceList=eth0:10.69.0.0:1,eth1:172.168.1.0:2
 
 ################################################################################
 #                                                                              #
@@ -311,7 +311,7 @@ oracle.install.asm.SYSASMPassword=
 # Example: oracle.install.asm.diskGroup.name=data
 #
 #-------------------------------------------------------------------------------
-oracle.install.asm.diskGroup.name= <%= @dg_name %>
+oracle.install.asm.diskGroup.name=GRID_DG
 
 #-------------------------------------------------------------------------------
 # Redundancy level to be used by ASM.
@@ -351,7 +351,7 @@ oracle.install.asm.diskGroup.AUSize=1
 #     oracle.install.asm.diskGroup.disks=\\.\ORCLDISKDATA0,\\.\ORCLDISKDATA1
 #
 #-------------------------------------------------------------------------------
-oracle.install.asm.diskGroup.disks= <%= @ocr_dg %>
+oracle.install.asm.diskGroup.disks=/dev/asm-diskb,/dev/asm-diskc,/dev/asm-diskd
 
 #-------------------------------------------------------------------------------
 # The disk discovery string to be used to discover the disks used create a ASM DiskGroup
@@ -363,7 +363,7 @@ oracle.install.asm.diskGroup.disks= <%= @ocr_dg %>
 #     oracle.install.asm.diskGroup.diskDiscoveryString=\\.\ORCLDISK*
 #
 #-------------------------------------------------------------------------------
-oracle.install.asm.diskGroup.diskDiscoveryString=<%= @disk_string %>
+oracle.install.asm.diskGroup.diskDiscoveryString=/dev/asm*
 
 #-------------------------------------------------------------------------------
 # oracle.install.asm.monitorPassword=password
