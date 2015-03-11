@@ -1,22 +1,7 @@
-#udev setting
-cookbook_file "/dev/udev.sh" do
-   owner 'oracle'
-   group 'oinstall'
-   mode '0644'
-end
-
-bash 'udev_setting' do
-  cwd "/dev/"
-  code "./udev.sh > /etc/udev/rules.d/99-oracle-asmdevices.rules"
-end
-
-bash 'udev_start' do
-	code "start_udev"
-end
 
 
 #setting GI home
-[node[:oracle][:grid][:base], node[:oracle][:grid][:home],node[:oracle][:grid][:inventory]].each do |dir|
+[node[:oracle][:grid][:base], node[:oracle][:grid][:home],node[:oracle][:grid][:inventory],node[:oracle][:rdbms][:install_dir]].each do |dir|
   directory dir do
     owner 'grid'
     group 'oinstall'
@@ -24,6 +9,7 @@ end
     action :create
   end
 end
+
 
 # GI rsp template.
 template "#{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp" do
@@ -50,6 +36,18 @@ template "#{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp" do
 
   )
 end
+
+yum_package 'unzip'
+
+
+execute "unzip_grid_media" do
+    command "unzip #{File.basename([:oracle][:grid][:install_files])}"
+    user "grid"
+    group 'oinstall'
+    cwd node[:oracle][:rdbms][:install_dir]
+end
+
+
 
 
  bash 'run_gi_installer' do

@@ -29,7 +29,7 @@ end
 
 user 'grid' do
   uid node[:oracle][:grid][:uid]
-  gid node[:oracle][:oracle][:gid]
+  gid node[:oracle][:user][:gid]
   shell node[:oracle][:user][:shell]
   comment 'RAC Administrator'
   supports :manage_home => true

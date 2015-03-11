@@ -54,6 +54,7 @@ default[:oracle][:rdbms][:dbbin_version] = '11g'
 default[:oracle][:rdbms][:ora_home] = "#{node[:oracle][:ora_base]}/product/11.2.0.4"
 default[:oracle][:rdbms][:ora_home_12c] = "#{node[:oracle][:ora_base]}/12R1"
 default[:oracle][:rdbms][:is_installed] = false
+default[:oracle][:grid][:is_installed] = false
 default[:oracle][:rdbms][:install_info] = {}
 default[:oracle][:rdbms][:install_dir] = "/s01"
 default[:oracle][:rdbms][:response_file_url] = ''
@@ -67,7 +68,7 @@ default[:oracle][:rdbms][:db_create_template] = 'default_template.dbt'
 # CentOS 6.4, which is the minimum version targeted by oracle.
 default[:oracle][:rdbms][:deps] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
                                    'glibc-devel', 'ksh', 'libgcc', 'libstdc++', 'libstdc++-devel', 'libaio',
-                                   'libaio-devel', 'make', 'sysstat','cvuqdisk']
+                                   'libaio-devel', 'make', 'sysstat']
 
 # Oracle dependencies for 12c
 default[:oracle][:rdbms][:deps_12c] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
@@ -90,6 +91,7 @@ default[:oracle][:rdbms][:env_12c] = {'ORACLE_BASE' => node[:oracle][:ora_base],
 default[:oracle][:rdbms][:install_files] = ['/sft/p13390677_112040_Linux-x86-64_1of7.zip',
                                             '/sft/p13390677_112040_Linux-x86-64_2of7.zip']
 
+default[:oracle][:grid][:install_files] = '/sft/p13390677_112040_Linux-x86-64_3of7.zip'
 
 # Passwords set by createdb.rb for the default open database users.
 # By order of appearance, those are: SYS, SYSTEM and DBSNMP.
