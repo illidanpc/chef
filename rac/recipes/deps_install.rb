@@ -22,6 +22,6 @@ node[:oracle][:rdbms][:deps].each do |dep|
 end
 
 execute 'cvuqdisk_package' do
-  command 'rpm -Uvh /sft/grid/rpm 2>/dev/null'
+  command 'rpm -Uvh /sft/grid/rpm/cvuqdisk-1.0.9-1.rpm 2>/dev/null'
   returns [0,1]
 end
