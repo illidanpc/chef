@@ -22,3 +22,11 @@ bash 'udev_start' do
 	code "/sbin/start_udev"
 	not_if { File.exists?("/etc/udev/rules.d/99-oracle-asmdevices.rules" ) }
 end
+
+
+ruby_block 'set_udev_flag' do
+  block do
+    node.set[:oracle][:grid][:udev][:flag] = true
+  end
+  action :create
+end
