@@ -12,7 +12,7 @@
 end
 
 execute "chown_back_to_grid" do
-  command "chown -R grid.oinstall #{node[:oracle][:grid][:p_base]}"
+  command "chown -R grid.oinstall /g01}"
 end
 
 

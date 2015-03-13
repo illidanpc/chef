@@ -46,11 +46,11 @@ default[:oracle][:grid][:cluster][:disk_string]= '/dev/asm*'
 default[:oracle][:ora_base] = '/u01/app/oracle'
 default[:oracle][:ora_inventory] = '/u01/app/oraInventory'
 default[:oracle][:grid][:base] = '/g01/grid/app/grid'
-default[:oracle][:grid][:p_base] = '/g01'
+default[:oracle][:grid][:p_base] = '/g01/grid/app'
 default[:oracle][:grid][:home] = '/g01/grid/app/11.2.0/grid'
 default[:oracle][:grid][:inventory] = '/g01/grid/app/oraInventory'
-default[:oracle][:grid][:asm]='+ASM1'
-default[:oracle][:grid][:asm][:pw]='Oracle_12345'
+default[:oracle][:grid][:asm][:sid]='+ASM1'
+default[:oracle][:grid][:asm][:pw]="Oracle_12345"
 
 ## Settings specific to the Oracle RDBMS proper.
 default[:oracle][:rdbms][:dbbin_version] = '11g'
@@ -73,7 +73,7 @@ default[:oracle][:grid][:gf][:flag]=false
 default[:oracle][:rdbms][:deps] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
                                    'glibc-devel', 'ksh', 'libgcc', 'libstdc++', 'libstdc++-devel', 'libaio',
                                    'libaio-devel', 'make', 'sysstat','elfutils-libelf-devel']
-defalt[:oracle][:grid][:deps][:flag]=false
+default[:oracle][:grid][:deps][:flag]=false
 
 # Oracle environment for 11g
 default[:oracle][:rdbms][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],

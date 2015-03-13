@@ -16,7 +16,7 @@
 
 # Configure Oracle user, install the RDBMS's dependencies, configure
 # kernel parameters, install the binaries and apply latest patch.
-recipe[rac::gi_folders], recipe[gi]
+
 # Set up and configure the oracle user.
 include_recipe 'rac::gi_user_config' unless node[:oracle][:grid][:user][:flag]
 

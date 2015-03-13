@@ -64,7 +64,7 @@ template "/home/grid/.profile" do
   variables(
     :crs_home=> node[:oracle][:grid][:home],
     :p_base=> node[:oracle][:grid][:p_base],
-    :sid=> node[:oracle][:grid][:asm]
+    :sid=> node[:oracle][:grid][:asm][:sid]
     )
 end
 
