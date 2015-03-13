@@ -25,15 +25,17 @@ default[:oracle][:gird][:pw_set] = false
 #default[:oracle][:user][:edb] = 'oracle'
 #default[:oracle][:user][:edb_item] = 'foo'
 default[:oracle][:user][:pw]='oracle'
+default[:oracle][:grid][:user][:flag]=false
+
 default[:oracle][:grid][:uid]= 301
-default[:oracle][:grid][:sup_grps]= {'asmadmin' =>5000, 'asmdba'=> 5001,'asmoper'=>5002}
+default[:oracle][:grid][:sup_grps]= {'dba'=>202, 'asmadmin' =>5000, 'asmdba'=> 5001,'asmoper'=>5002}
 default[:oracle][:grid][:pw]='grid'
 default[:oracle][:grid][:scan][:name]= 'red-cluster-scan'
 default[:oracle][:grid][:scan][:port]= '1623'
 default[:oracle][:grid][:cluster][:name]= 'red-cluster'
 default[:oracle][:grid][:cluster][:node1]= {'name' => 'red1', 'vip' => 'red1-vip'}
 default[:oracle][:grid][:cluster][:node2]= {'name' => 'red2', 'vip' => 'red2-vip'}
-default[:oracle][:grid][:cluster][:eth0_inter] = '10.69.2.0'
+default[:oracle][:grid][:cluster][:eth0_inter] = '10.69.0.0'
 default[:oracle][:grid][:cluster][:eth1_inter] = '172.168.1.0'
 default[:oracle][:grid][:cluster][:dg_name] = 'GRID_DG'
 default[:oracle][:grid][:cluster][:ocr_dg] = '/dev/asm-diskb,/dev/asm-diskc,/dev/asm-diskd'
@@ -48,6 +50,7 @@ default[:oracle][:grid][:p_base] = '/g01'
 default[:oracle][:grid][:home] = '/g01/grid/app/11.2.0/grid'
 default[:oracle][:grid][:inventory] = '/g01/grid/app/oraInventory'
 default[:oracle][:grid][:asm]='+ASM1'
+default[:oracle][:grid][:asm][:pw]='Oracle_12345'
 
 ## Settings specific to the Oracle RDBMS proper.
 default[:oracle][:rdbms][:dbbin_version] = '11g'
@@ -59,8 +62,9 @@ default[:oracle][:rdbms][:install_info] = {}
 default[:oracle][:rdbms][:install_dir] = "/s01"
 default[:oracle][:rdbms][:response_file_url] = ''
 default[:oracle][:rdbms][:db_create_template] = 'default_template.dbt'
-
-
+default[:oracle][:kernel][:flag]=false
+default[:oracle][:grid][:udev][:flag]=false
+default[:oracle][:grid][:gf][:flag]=false
 
 # Dependencies for Oracle 11.2.
 # Source: <http://docs.oracle.com/cd/E11882_01/install.112/e24321/pre_install.htm#CIHFICFD>
@@ -68,25 +72,17 @@ default[:oracle][:rdbms][:db_create_template] = 'default_template.dbt'
 # CentOS 6.4, which is the minimum version targeted by oracle.
 default[:oracle][:rdbms][:deps] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
                                    'glibc-devel', 'ksh', 'libgcc', 'libstdc++', 'libstdc++-devel', 'libaio',
-                                   'libaio-devel', 'make', 'sysstat']
-
-# Oracle dependencies for 12c
-default[:oracle][:rdbms][:deps_12c] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
-                                   'glibc-devel', 'ksh', 'libgcc', 'libstdc++', 'libstdc++-devel', 'libaio',
-                                   'libaio-devel', 'libXext', 'libXtst', 'libX11', 'libXau', 'libxcb', 'libXi', 'make', 'sysstat']
+                                   'libaio-devel', 'make', 'sysstat','elfutils-libelf-devel']
+defalt[:oracle][:grid][:deps][:flag]=false
 
 # Oracle environment for 11g
 default[:oracle][:rdbms][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],
                                   'ORACLE_HOME' => node[:oracle][:rdbms][:ora_home],
                                   'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
-default[:oracle][:grid][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],
-                                  'ORACLE_HOME' => node[:oracle][:rdbms][:ora_home],
-                                  'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
 
-# Oracle environment for 12c
-default[:oracle][:rdbms][:env_12c] = {'ORACLE_BASE' => node[:oracle][:ora_base],
-                                  'ORACLE_HOME' => node[:oracle][:rdbms][:ora_home_12c],
-                                  'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home_12c]}/bin:#{node[:oracle][:rdbms][:ora_home_12c]}/OPatch"}
+default[:oracle][:grid][:env] = {'ORACLE_BASE' => node[:oracle][:grid][:base],
+                                  'ORACLE_HOME' => node[:oracle][:grid][:home],
+                                  'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
 
 default[:oracle][:rdbms][:install_files] = ['/sft/p13390677_112040_Linux-x86-64_1of7.zip',
                                             '/sft/p13390677_112040_Linux-x86-64_2of7.zip']

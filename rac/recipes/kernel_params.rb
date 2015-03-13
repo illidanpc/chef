@@ -32,3 +32,9 @@ cookbook_file '/etc/sysctl.d/ora_params' do
   notifies :run, 'bash[sysctl_reload]', :immediately
 end
 
+ruby_block 'set_kernel_flag' do
+  block do
+    node.set[:oracle][:kernel][:flag] = true
+  end
+  action :create
+end

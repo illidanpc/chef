@@ -110,12 +110,12 @@ oracle.install.option=CRS_CONFIG
 # Specify the complete path of the Oracle Base.
 #-------------------------------------------------------------------------------
 
-ORACLE_BASE= <%= @ORACLE_BASE %>
+ORACLE_BASE=<%= @ORACLE_BASE %>
 
 #-------------------------------------------------------------------------------
 # Specify the complete path of the Oracle Home.
 #-------------------------------------------------------------------------------
-ORACLE_HOME= <%= @ORACLE_HOME %>
+ORACLE_HOME=<%= @ORACLE_HOME %>
 
 ################################################################################
 #                                                                              #
@@ -153,13 +153,13 @@ oracle.install.asm.OSASM=asmadmin
 #-------------------------------------------------------------------------------
 # Specify a name for SCAN
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.gpnp.scanName= <%= @scan_name %>
+oracle.install.crs.config.gpnp.scanName=<%= @scan_name %>
 
 #-------------------------------------------------------------------------------
 # Specify a unused port number for SCAN service
 #-------------------------------------------------------------------------------
 
-oracle.install.crs.config.gpnp.scanPort= <%= @scan_port %>
+oracle.install.crs.config.gpnp.scanPort=<%= @scan_port %>
 
 ################################################################################
 #                                                                              #
@@ -173,7 +173,7 @@ oracle.install.crs.config.gpnp.scanPort= <%= @scan_port %>
 # any combination of lower and uppercase alphabets (A - Z), (0 - 9), hyphen(-)
 # and underscore(_).
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.clusterName= <%= @cluster_name %>
+oracle.install.crs.config.clusterName=<%= @cluster_name %>
 
 #-------------------------------------------------------------------------------
 # Specify 'true' if you would like to configure Grid Naming Service(GNS), else
@@ -303,7 +303,7 @@ oracle.install.crs.config.ipmi.bmcPassword=
 #-------------------------------------------------------------------------------
 # Specify a password for SYSASM user of the ASM instance
 #-------------------------------------------------------------------------------
-oracle.install.asm.SYSASMPassword=
+oracle.install.asm.SYSASMPassword=<%= @asm_pw %>
 
 #-------------------------------------------------------------------------------
 # The ASM DiskGroup
@@ -311,7 +311,7 @@ oracle.install.asm.SYSASMPassword=
 # Example: oracle.install.asm.diskGroup.name=data
 #
 #-------------------------------------------------------------------------------
-oracle.install.asm.diskGroup.name= <%= @dg_name %>
+oracle.install.asm.diskGroup.name=<%= @dg_name %>
 
 #-------------------------------------------------------------------------------
 # Redundancy level to be used by ASM.
@@ -351,7 +351,7 @@ oracle.install.asm.diskGroup.AUSize=1
 #     oracle.install.asm.diskGroup.disks=\\.\ORCLDISKDATA0,\\.\ORCLDISKDATA1
 #
 #-------------------------------------------------------------------------------
-oracle.install.asm.diskGroup.disks= <%= @ocr_dg %>
+oracle.install.asm.diskGroup.disks=<%= @ocr_dg %>
 
 #-------------------------------------------------------------------------------
 # The disk discovery string to be used to discover the disks used create a ASM DiskGroup
@@ -368,7 +368,7 @@ oracle.install.asm.diskGroup.diskDiscoveryString=<%= @disk_string %>
 #-------------------------------------------------------------------------------
 # oracle.install.asm.monitorPassword=password
 #-------------------------------------------------------------------------------
-oracle.install.asm.monitorPassword=
+oracle.install.asm.monitorPassword=<%= @asm_pw %>
 
 ################################################################################
 #                                                                              #

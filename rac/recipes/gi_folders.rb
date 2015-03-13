@@ -11,6 +11,10 @@
   end
 end
 
+execute "chown_back_to_grid" do
+  command "chown -R grid.oinstall #{node[:oracle][:grid][:p_base]}"
+end
+
 
 # GI rsp template.
 template "#{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp" do
@@ -33,8 +37,8 @@ template "#{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp" do
     :eth1_inter => node[:oracle][:grid][:cluster][:eth1_inter],
     :dg_name => node[:oracle][:grid][:cluster][:dg_name],
     :ocr_dg=> node[:oracle][:grid][:cluster][:ocr_dg],
-    :disk_string=> node[:oracle][:grid][:cluster][:disk_string]
-
+    :disk_string=> node[:oracle][:grid][:cluster][:disk_string],
+    :asm_pw=> node[:oracle][:grid][:asm][:pw]
   )
 end
 
@@ -42,8 +46,16 @@ yum_package 'unzip'
 
 
 execute "unzip_grid_media" do
-    command "unzip #{node[:oracle][:grid][:install_files]}"
+    command "unzip -u #{node[:oracle][:grid][:install_files]}"
     user "grid"
     group 'oinstall'
     cwd node[:oracle][:rdbms][:install_dir]
+end
+
+
+ruby_block 'set_gf_flag' do
+  block do
+    node.set[:oracle][:grid][:gf][:flag] = true
+  end
+  action :create
 end

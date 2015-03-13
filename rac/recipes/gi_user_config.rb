@@ -145,5 +145,11 @@ cookbook_file '/etc/security/limits.conf' do
   source 'ora_limits'
 end
 
+ruby_block 'set_gi_user_flag' do
+  block do
+    node.set[:oracle][:grid][:user][:flag] = true
+  end
+  action :create
+end
 
 # 

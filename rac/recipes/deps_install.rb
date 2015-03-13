@@ -25,3 +25,10 @@ execute 'cvuqdisk_package' do
   command 'rpm -Uvh /sft/grid/rpm/cvuqdisk-1.0.9-1.rpm 2>/dev/null'
   returns [0,1]
 end
+
+ruby_block 'set_gi_deps_flag' do
+  block do
+    node.set[:oracle][:grid][:deps][:flag] = true
+  end
+  action :create
+end
