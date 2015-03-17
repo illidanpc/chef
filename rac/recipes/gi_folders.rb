@@ -12,7 +12,7 @@
 end
 
 execute "chown_back_to_grid" do
-  command "chown -R grid.oinstall /g01}"
+  command "chown -R grid.oinstall /g01"
 end
 
 
@@ -50,6 +50,11 @@ execute "unzip_grid_media" do
     user "grid"
     group 'oinstall'
     cwd node[:oracle][:rdbms][:install_dir]
+end
+
+execute 'cvuqdisk_package' do
+  command 'rpm -Uvh #{node[:oracle][:rdbms][:install_dir]}/grid/rpm/cvuqdisk-1.0.9-1.rpm 2>/dev/null'
+  returns [0,1]
 end
 
 
