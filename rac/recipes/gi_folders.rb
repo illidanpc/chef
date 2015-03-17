@@ -1,4 +1,4 @@
-
+unless node[:oracle][:grid][:gf][:flag]
 
 #setting GI home
 [node[:oracle][:grid][:base], node[:oracle][:grid][:home],node[:oracle][:grid][:inventory],node[:oracle][:rdbms][:install_dir]].each do |dir|
@@ -53,7 +53,7 @@ execute "unzip_grid_media" do
 end
 
 execute 'cvuqdisk_package' do
-  command 'rpm -Uvh #{node[:oracle][:rdbms][:install_dir]}/grid/rpm/cvuqdisk-1.0.9-1.rpm 2>/dev/null'
+  command 'rpm -Uvh #{node[:oracle][:rdbms][:install_dir]}/grid/rpm/cvuqdisk-1.0.9-1.rpm '
   returns [0,1]
 end
 
@@ -63,4 +63,5 @@ ruby_block 'set_gf_flag' do
     node.set[:oracle][:grid][:gf][:flag] = true
   end
   action :create
+end
 end

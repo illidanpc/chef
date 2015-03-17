@@ -36,3 +36,5 @@ include_recipe 'oracle::gi_folders' unless node[:oracle][:grid][:gf][:flag]
 # GI self
 include_recipe 'oracle::gi_setup' unless node[:oracle][:grid][:is_installed]
 
+
+

@@ -17,6 +17,7 @@
 #
 ## Configure kernel parameters for Oracle RDBMS.
 #
+unless node[:oracle][:kernel][:flag]
 
 bash 'sysctl_reload' do
   code 'source /etc/init.d/functions && apply_sysctl'
@@ -37,4 +38,6 @@ ruby_block 'set_kernel_flag' do
     node.set[:oracle][:kernel][:flag] = true
   end
   action :create
+end
+
 end

@@ -1,4 +1,5 @@
 #udev setting
+unless node[:oracle][:grid][:udev][:flag]
 
 execute 'whitspace' do
   command 'echo "options=--whitelisted --replace-whitespace"  >> /etc/scsi_id.config'
@@ -20,7 +21,7 @@ end
 
 bash 'udev_start' do
 	code "/sbin/start_udev"
-	not_if { File.exists?("/etc/udev/rules.d/99-oracle-asmdevices.rules" ) }
+	
 end
 
 
@@ -29,4 +30,5 @@ ruby_block 'set_udev_flag' do
     node.set[:oracle][:grid][:udev][:flag] = true
   end
   action :create
+end
 end

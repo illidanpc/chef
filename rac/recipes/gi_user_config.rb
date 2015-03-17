@@ -23,6 +23,8 @@
 # The argument to useradd's -g option must be an already existing
 # group, else useradd will raise an error.
 # Therefore, we must create the oinstall group before we do the oracle user.
+unless node[:oracle][:grid][:user][:flag]
+  
 group 'oinstall' do
   gid node[:oracle][:user][:gid]
 end
@@ -84,7 +86,7 @@ template "/home/oracle/.profile" do
 end
 
 # Color setup for ls.
-execute 'gen_dir_colors' do
+execute 'gen_dir_colors_g' do
   command '/usr/bin/dircolors -p > /home/grid/.dir_colors'
   user 'grid'
   group 'oinstall'
@@ -152,4 +154,4 @@ ruby_block 'set_gi_user_flag' do
   action :create
 end
 
-# 
+end
