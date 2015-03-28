@@ -1,10 +1,13 @@
-# CHANGELOG for RAC
+rac CHANGELOG
+=============
 
-Cookbook relaunched (illidan/rac).
+This file is used to list changes made in each version of the rac cookbook.
 
-## Future
+0.1.0
+-----
+- [your_name] - Initial release of rac
 
-* Please refer to README.md, chapter Roadmap.
+- - -
+Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 
-## 1.0.0:
-
+The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.

@@ -9,7 +9,8 @@ end
 bash "run_gi_installer" do
     cwd "#{node[:oracle][:rdbms][:install_dir]}/grid"
     environment (node[:oracle][:grid][:env])
-    code "sudo -Eu grid ./runInstaller -showProgress -silent -waitforcompletion -force -ignorePrereq -responseFile #{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp -invPtrLoc #{node[:oracle][:grid][:base]}/oraInst.loc"
+#    code "sudo -Eu grid ./runInstaller -showProgress -silent -waitforcompletion -force -ignorePrereq -responseFile #{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp -invPtrLoc #{node[:oracle][:grid][:base]}/oraInst.loc"
+    code "sudo -Eu grid ./runInstaller -ignorePrereq -silent -force -responseFile /home/grid/grid_install_0323.rsp"
     returns [0, 6]
 end
 
