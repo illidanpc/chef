@@ -7,6 +7,6 @@ end
 
 execute "cfg" do
   cwd "/u01/11.2.0/grid/cfgtoollogs/"
-  command "./configToolAllCommands RESPONSE_FILE=/u01/cfgrsp.properties"
+  command "sudo -Eu grid ./configToolAllCommands RESPONSE_FILE=/u01/cfgrsp.properties"
 end
 
