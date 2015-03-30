@@ -80,10 +80,10 @@ default[:oracle][:rdbms][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],
                                   'ORACLE_HOME' => node[:oracle][:rdbms][:ora_home],
                                   'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
 
-default[:oracle][:grid][:env] = {'ORACLE_BASE' => node[:oracle][:grid][:base],
-                                  'ORACLE_HOME' => node[:oracle][:grid][:home],
-                                  'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node[:oracle][:ora_base]}/dba/bin:#{node[:oracle][:rdbms][:ora_home]}/bin:#{node[:oracle][:rdbms][:ora_home]}/OPatch"}
-
+default[:oracle][:grid][:env] =  {'ORACLE_BASE' => '/u01/app/grid',
+                                  'ORACLE_HOME' => '/u01/11.2.0/grid',
+                                  'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/u01/11.2.0/grid/bin:/u01/11.2.0/grid/OPatch"}
+                                  
 default[:oracle][:rdbms][:install_files] = ['/sft/p13390677_112040_Linux-x86-64_1of7.zip',
                                             '/sft/p13390677_112040_Linux-x86-64_2of7.zip']
 
