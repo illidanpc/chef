@@ -22,19 +22,19 @@ include_recipe 'rac::gi_user_config' unless node[:oracle][:grid][:user][:flag]
 
 ## Install dependencies and configure kernel parameters.
 
-include_recipe 'oracle::deps_install' unless node[:oracle][:grid][:deps][:flag]
+include_recipe 'rac::deps_install' unless node[:oracle][:grid][:deps][:flag]
 
 
 # Setting up kernel parameters
-include_recipe 'oracle::kernel_params' unless node[:oracle][:kernel][:flag]
+include_recipe 'rac::kernel_params' unless node[:oracle][:kernel][:flag]
 
 # Udev
-include_recipe 'oracle::udev' unless node[:oracle][:grid][:udev][:flag]
+include_recipe 'rac::udev' unless node[:oracle][:grid][:udev][:flag]
 # GI folders
-include_recipe 'oracle::gi_folders' unless node[:oracle][:grid][:gf][:flag]
+include_recipe 'rac::gi_folders' unless node[:oracle][:grid][:gf][:flag]
 
 # GI self
-include_recipe 'oracle::gi_setup' unless node[:oracle][:grid][:is_installed]
+include_recipe 'rac::gi_setup' unless node[:oracle][:grid][:is_installed]
 
 
 

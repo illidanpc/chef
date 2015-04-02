@@ -42,7 +42,7 @@ template "#{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp" do
   )
 end
 
-yum_package 'unzip'
+#yum_package 'unzip'
 
 
 execute "unzip_grid_media" do

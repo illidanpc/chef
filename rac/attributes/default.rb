@@ -21,7 +21,7 @@ default[:oracle][:user][:gid] = 201
 default[:oracle][:user][:shell] = '/bin/ksh'
 default[:oracle][:user][:sup_grps] = {'dba' => 202,'asmdba'=> 5001}
 default[:oracle][:user][:pw_set] = false
-default[:oracle][:gird][:pw_set] = false
+default[:oracle][:grid][:pw_set] = false
 #default[:oracle][:user][:edb] = 'oracle'
 #default[:oracle][:user][:edb_item] = 'foo'
 default[:oracle][:user][:pw]='oracle'
@@ -30,12 +30,17 @@ default[:oracle][:grid][:user][:flag]=false
 default[:oracle][:grid][:uid]= 301
 default[:oracle][:grid][:sup_grps]= {'dba'=>202, 'asmadmin' =>5000, 'asmdba'=> 5001,'asmoper'=>5002}
 default[:oracle][:grid][:pw]='grid'
+
+
+# Cluster setting
+
 default[:oracle][:grid][:scan][:name]= 'red-cluster-scan'
 default[:oracle][:grid][:scan][:port]= '1623'
 default[:oracle][:grid][:cluster][:name]= 'red-cluster'
-default[:oracle][:grid][:cluster][:node1]= {'name' => 'red1', 'vip' => 'red1-vip'}
-default[:oracle][:grid][:cluster][:node2]= {'name' => 'red2', 'vip' => 'red2-vip'}
-default[:oracle][:grid][:cluster][:eth0_inter] = '10.69.0.0'
+default[:oracle][:grid][:cluster][:node1]= {'name' => 'racliu1', 'vip' => 'racliu1-vip', 'pubip' => '10.66.2.178'}
+default[:oracle][:grid][:cluster][:node2]= {'name' => 'racliu2', 'vip' => 'racliu2-vip', 'pubip' => '10.66.2.177'}
+default[:oracle][:grid][:cluster][:node3]= {'name' => 'racliu3', 'vip' => 'racliu3-vip', 'pubip' => '10.66.2.176'}
+default[:oracle][:grid][:cluster][:eth0_inter] = '10.66.2.0'
 default[:oracle][:grid][:cluster][:eth1_inter] = '172.168.1.0'
 default[:oracle][:grid][:cluster][:dg_name] = 'GRID_DG'
 default[:oracle][:grid][:cluster][:ocr_dg] = '/dev/asm-diskb,/dev/asm-diskc,/dev/asm-diskd'
@@ -83,7 +88,7 @@ default[:oracle][:rdbms][:env] = {'ORACLE_BASE' => node[:oracle][:ora_base],
 default[:oracle][:grid][:env] =  {'ORACLE_BASE' => '/u01/app/grid',
                                   'ORACLE_HOME' => '/u01/11.2.0/grid',
                                   'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/u01/11.2.0/grid/bin:/u01/11.2.0/grid/OPatch"}
-                                  
+
 default[:oracle][:rdbms][:install_files] = ['/sft/p13390677_112040_Linux-x86-64_1of7.zip',
                                             '/sft/p13390677_112040_Linux-x86-64_2of7.zip']
 
