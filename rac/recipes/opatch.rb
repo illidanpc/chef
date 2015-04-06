@@ -27,24 +27,6 @@ end
 #create a response file for silent install
 
 
-$ORACLE_HOME/OPatch/ocm/bin/emocmrsp
-silent response file location - /tmp/ocm.rsp 
-
-[grid@CHEFVM1 bin]$ ./emocmrsp 
-OCM Installation Response Generator 10.3.4.0.0 - Production
-Copyright (c) 2005, 2010, Oracle and/or its affiliates.  All rights reserved.
-
-Provide your email address to be informed of security issues, install and
-initiate Oracle Configuration Manager. Easier for you if you use your My
-Oracle Support Email address/User Name.
-Visit http://www.oracle.com/support/policies.html for details.
-Email address/User Name: 
-
-You have not provided an email address for notification of security issues.
-Do you wish to remain uninformed of security issues ([Y]es, [N]o) [N]:  Y
-The OCM configuration response file (ocm.rsp) was successfully created.
-[grid@CHEFVM1 bin]$ pwd
-
 
 #Install GRID Patch
 

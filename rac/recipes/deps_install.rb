@@ -18,7 +18,7 @@
 #
 unless node[:rac][:deps][:flag]
 
-node[:rac][:deps].each do |dep|
+node[:rac][:deps][:comp].each do |dep|
   yum_package dep
 end
 

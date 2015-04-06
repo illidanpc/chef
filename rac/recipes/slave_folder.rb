@@ -1,3 +1,4 @@
+unless node[:rac][:grid][:slave][:flag]
 
 #setting GI home
 [node[:rac][:grid][:base], node[:rac][:grid][:home],node[:rac][:grid][:inventory],node[:rac][:install_dir]].each do |dir|
@@ -29,3 +30,11 @@ execute "chown_back_to_oracle" do
   command "chown -R oracle.oinstall /u01/app/oracle"
 end
 
+ruby_block 'set_slave_flag' do
+  block do
+    node.set[:rac][:grid][:slave][:flag] = true
+  end
+  action :create
+end
+
+end

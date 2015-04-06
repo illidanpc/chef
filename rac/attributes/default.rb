@@ -28,9 +28,9 @@ default[:rac][:grid][:scan][:name]= 'ora-test-scan'
 default[:rac][:grid][:scan][:port]= '1521'
 
 default[:rac][:grid][:cluster][:name]= 'ora-test-scan'
-default[:rac][:grid][:cluster][:node1]= {'name' => 'racliu1.covisint.com', 'vip' => 'racliu1-vip', 'pubip' => '10.66.2.178'}
-default[:rac][:grid][:cluster][:node2]= {'name' => 'racliu2.covisint.com', 'vip' => 'racliu2-vip', 'pubip' => '10.66.2.177'}
-default[:rac][:grid][:cluster][:node3]= {'name' => 'racliu3.covisint.com', 'vip' => 'racliu3-vip', 'pubip' => '10.66.2.176'}
+default[:rac][:grid][:cluster][:node1]= {'name' => 'racliu1', 'fqdn' => 'racliu1.covisint.com', 'vip' => 'racliu1-vip', 'pubip' => '10.66.2.178'}
+default[:rac][:grid][:cluster][:node2]= {'name' => 'racliu2', 'fqdn' => 'racliu2.covisint.com','vip' => 'racliu2-vip', 'pubip' => '10.66.2.177'}
+default[:rac][:grid][:cluster][:node3]= {'name' => 'racliu3', 'fqdn' => 'racliu3.covisint.com','vip' => 'racliu3-vip', 'pubip' => '10.66.2.176'}
 default[:rac][:grid][:cluster][:eth0_inter] = '10.66.0.0'
 default[:rac][:grid][:cluster][:eth1_inter] = '192.168.0.0'
 
@@ -41,6 +41,7 @@ default[:rac][:grid][:cluster][:eth1_inter] = '192.168.0.0'
 default[:rac][:oracle][:base] = '/u01/app/oracle'
 default[:rac][:oracle][:home] = '/u01/app/oracle/product/11.2.0/db_1'
 default[:rac][:oracle][:inventory] = '/u01/app/oraInventory'
+default[:rac][:oracle][:dbname] = 'chefming'
 default[:rac][:oracle][:sid] = 'chefming1'
 
 default[:rac][:grid][:base] = '/u01/app/grid'
@@ -67,7 +68,7 @@ default[:rac][:rdbms][:db_create_template] = 'default_template.dbt'
 # Source: <http://docs.oracle.com/cd/E11882_01/install.112/e24321/pre_install.htm#CIHFICFD>
 # We omit version-release info by design, as their requirements are satisfied by
 # CentOS 6.4, which is the minimum version targeted by oracle.
-default[:rac][:deps] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
+default[:rac][:deps][:comp] = ['binutils', 'compat-libcap1', 'compat-libstdc++-33', 'gcc', 'gcc-c++', 'glibc',
                          'glibc-devel', 'ksh', 'libgcc', 'libstdc++', 'libstdc++-devel', 'libaio',
                           'libaio-devel', 'make', 'sysstat','elfutils-libelf-devel']
 
@@ -89,9 +90,10 @@ default[:rac][:grid][:install_files] = '/sft/p13390677_112040_Linux-x86-64_3of7.
 # Passwords set by createdb.rb for the default open database users.
 # By order of appearance, those are: SYS, SYSTEM and DBSNMP.
 # The latter is for the OEM agent.
-default[:rac][:rdbms][:sys_pw] = 'sys_pw_goes_here'
-default[:rac][:rdbms][:system_pw] = 'system_pw_goes_here'
-default[:rac][:rdbms][:dbsnmp_pw] = 'dbsnmp_pw_goes_here'
+default[:rac][:rdbms][:sys_pw] = 'dba123'
+default[:rac][:rdbms][:system_pw] = 'dba123'
+default[:rac][:rdbms][:dbsnmp_pw] = 'dba123'
+default[:rac][:rdbms][:asmsys_pw]= 'dba123'
 
 # Settings related to patching.
 default[:rac][:rdbms][:opatch_update_url] = '/sft/p13390677_112040_Linux-x86-64.zip'
@@ -131,3 +133,7 @@ default[:rac][:grid][:gf][:flag]=false
 default[:rac][:rdbms][:is_installed] = false
 default[:rac][:grid][:is_installed] = false
 default[:rac][:deps][:flag]=false
+default[:rac][:sid][:flag]=false
+default[:rac][:grid][:slave][:flag]=false
+default[:rac][:grid][:root][:flag]=false
+default[:rac][:grid][:asm][:flag]=false
