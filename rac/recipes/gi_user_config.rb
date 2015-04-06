@@ -23,118 +23,102 @@
 # The argument to useradd's -g option must be an already existing
 # group, else useradd will raise an error.
 # Therefore, we must create the oinstall group before we do the oracle user.
-unless node[:oracle][:grid][:user][:flag]
+unless node[:rac][:user][:flag]
   
 group 'oinstall' do
-  gid node[:oracle][:user][:gid]
+  gid node[:rac][:oracle][:user][:gid]
 end
 
 user 'grid' do
-  uid node[:oracle][:grid][:uid]
-  gid node[:oracle][:user][:gid]
-  shell node[:oracle][:user][:shell]
+  uid node[:rac][:grid][:user][:uid]
+  gid node[:rac][:oracle][:user][:gid]
+  shell node[:rac][:oracle][:user][:shell]
   comment 'RAC Administrator'
   supports :manage_home => true
 end
 
 user 'oracle' do
-  uid node[:oracle][:user][:uid]
-  gid node[:oracle][:user][:gid]
-  shell node[:oracle][:user][:shell]
+  uid node[:rac][:oracle][:user][:uid]
+  gid node[:rac][:oracle][:user][:gid]
+  shell node[:rac][:oracle][:user][:shell]
   comment 'Oracle Administrator'
   supports :manage_home => true
 end
 
-yum_package File.basename(node[:oracle][:user][:shell])
+yum_package File.basename(node[:rac][:oracle][:user][:shell])
 
 # Configure the oracle user.
 # Make it a member of the appropriate supplementary groups, and
 # ensure its environment will be set up properly upon login.
-node[:oracle][:grid][:sup_grps].each_key do |grp|
+node[:rac][:grid][:user][:sup_grps].each_key do |grp|
   group grp do
-    gid node[:oracle][:grid][:sup_grps][grp]
+    gid node[:rac][:grid][:user][:sup_grps][grp]
     members ['grid']
     append true
   end
 end
 
 template "/home/grid/.profile" do
-  action :create_if_missing
   source 'grid_profile.erb'
   owner 'grid'
   group 'oinstall'
   variables(
-    :crs_home=> node[:oracle][:grid][:home],
-    :p_base=> node[:oracle][:grid][:p_base],
-    :sid=> node[:oracle][:grid][:asm][:sid]
+    :g_home=> node[:rac][:grid][:home],
+    :g_base=> node[:rac][:grid][:base],
+    :g_sid=> node[:rac][:grid][:asm][:sid]
     )
 end
 
-node[:oracle][:user][:sup_grps].each_key do |grp|
+node[:rac][:oracle][:user][:sup_grps].each_key do |grp|
   group grp do
-    gid node[:oracle][:user][:sup_grps][grp]
+    gid node[:rac][:oracle][:user][:sup_grps][grp]
     members ['oracle']
     append true
   end
 end
 
 template "/home/oracle/.profile" do
-  action :create_if_missing
   source 'ora_profile.erb'
   owner 'oracle'
   group 'oinstall'
-end
-
-# Color setup for ls.
-execute 'gen_dir_colors_g' do
-  command '/usr/bin/dircolors -p > /home/grid/.dir_colors'
-  user 'grid'
-  group 'oinstall'
-  cwd '/home/grid'
-  creates '/home/gird/.dir_colors'
-  only_if {node[:oracle][:user][:shell] != '/bin/bash'}
-end
-
-execute 'gen_dir_colors' do
-  command '/usr/bin/dircolors -p > /home/oracle/.dir_colors'
-  user 'oracle'
-  group 'oinstall'
-  cwd '/home/oracle'
-  creates '/home/oracle/.dir_colors'
-  only_if {node[:oracle][:user][:shell] != '/bin/bash'}
+  variables(
+    :o_home=> node[:rac][:grid][:home],
+    :o_base=> node[:rac][:grid][:base],
+    :o_sid=> node[:rac][:grid][:asm][:sid]
+    )
 end
 
 # Set the oracle user's password.
-unless node[:oracle][:grid][:pw_set]
-#  ora_edb_item = Chef::EncryptedDataBagItem.load(node[:oracle][:user][:edb], node[:oracle][:user][:edb_item])
-  ora_pw = node[:oracle][:grid][:pw]
+unless node[:rac][:grid][:user][:pw_set]
+#  ora_edb_item = Chef::EncryptedDataBagItem.load(node[:rac][:user][:edb], node[:rac][:user][:edb_item])
+  ora_pw = node[:rac][:grid][:user][:pw]
 
   # Note that output formatter will display the password on your terminal.
   execute 'change_grid_user_pw' do
     command "echo grid:#{ora_pw} | /usr/sbin/chpasswd"
   end
   
-  ruby_block 'set_pw_attr' do
+  ruby_block 'set_g_pw_attr' do
     block do
-      node.set[:oracle][:grid][:pw_set] = true
+      node.set[:rac][:grid][:user][:pw_set] = true
     end
     action :create
   end
 end
 
 # Set the oracle user's password.
-unless node[:oracle][:user][:pw_set]
-#  ora_edb_item = Chef::EncryptedDataBagItem.load(node[:oracle][:user][:edb], node[:oracle][:user][:edb_item])
-  ora_pw = node[:oracle][:user][:pw]
+unless node[:rac][:oracle][:user][:pw_set]
+#  ora_edb_item = Chef::EncryptedDataBagItem.load(node[:rac][:user][:edb], node[:rac][:user][:edb_item])
+  ora_pw = node[:rac][:oracle][:user][:pw]
 
   # Note that output formatter will display the password on your terminal.
   execute 'change_oracle_user_pw' do
     command "echo oracle:#{ora_pw} | /usr/sbin/chpasswd"
   end
   
-  ruby_block 'set_pw_attr' do
+  ruby_block 'set_o_pw_attr' do
     block do
-      node.set[:oracle][:user][:pw_set] = true
+      node.set[:rac][:oracle][:user][:pw_set] = true
     end
     action :create
   end
@@ -149,7 +133,7 @@ end
 
 ruby_block 'set_gi_user_flag' do
   block do
-    node.set[:oracle][:grid][:user][:flag] = true
+    node.set[:rac][:grid][:user][:flag] = true
   end
   action :create
 end

@@ -1,12 +1,15 @@
-cookbook_file "/u01/cfgrsp.properties" do
+template "/u01/cfgrsp.properties" do
   owner 'grid'
   group 'oinstall'
   mode '0755'
-  source 'cfgrsp'
+  source 'cfgrsp.erb'
+  variables(
+  	:asm_pw => node[:rac][:grid][:asm][:pw]
+  	)
 end
 
 execute "cfg" do
-  cwd "/u01/11.2.0/grid/cfgtoollogs/"
+  cwd "#{node[:rac][:grid][:home]}/cfgtoollogs/"
   command "sudo -Eu grid ./configToolAllCommands RESPONSE_FILE=/u01/cfgrsp.properties"
 end
 

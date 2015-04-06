@@ -1,5 +1,8 @@
-CRS_HOME=<%= @crs_home %>
-ORACLE_BASE=<%= @p_base %>
-ORACLE_SID=<%= @sid %>
-PATH=$CRS_HOME/bin:$PATH:$PATH/bin
-export PATH CRS_HOME ORACLE_BASE ORACLE_SID
+umask 022
+export ORACLE_SID=<%= @g_sid %>
+export ORACLE_BASE=<%= @g_base %>
+export ORACLE_HOME=<%= @g_home %>
+export PATH=$PATH:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch
+export NLS_DATE_FORMAT='DD-MON-YYYY HH24:MI:SS'
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$ORACLE_HOME/network/lib
+export  PS1=$(hostname)':$LOGNAME:${ORACLE_HOME##/*/}:${ORACLE_SID:-no_sid}> '

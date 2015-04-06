@@ -18,23 +18,21 @@
 # kernel parameters, install the binaries and apply latest patch.
 
 # Set up and configure the oracle user.
-include_recipe 'rac::gi_user_config' unless node[:oracle][:grid][:user][:flag]
+include_recipe 'rac::gi_user_config' 
 
 ## Install dependencies and configure kernel parameters.
 
-include_recipe 'rac::deps_install' unless node[:oracle][:grid][:deps][:flag]
-
+include_recipe 'rac::deps_install' 
 
 # Setting up kernel parameters
-include_recipe 'rac::kernel_params' unless node[:oracle][:kernel][:flag]
+include_recipe 'rac::kernel_params' 
 
 # Udev
-include_recipe 'rac::udev' unless node[:oracle][:grid][:udev][:flag]
+include_recipe 'rac::udev' 
 # GI folders
-include_recipe 'rac::gi_folders' unless node[:oracle][:grid][:gf][:flag]
+include_recipe 'rac::gi_folders' 
 
 # GI self
-include_recipe 'rac::gi_setup' unless node[:oracle][:grid][:is_installed]
-
+include_recipe 'rac::gi_setup' 
 
 

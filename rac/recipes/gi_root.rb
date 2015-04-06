@@ -1,11 +1,11 @@
 
 bash "orainstRoot" do
-  cwd "/u01/app/oraInventory"
+  cwd "#{node[:rac][:grid][:inventory]}"
   code "./orainstRoot.sh"
 end
 
 bash "crs_root" do
-  cwd "/u01/11.2.0/grid"
+  cwd "#{node[:rac][:grid][:home]}"
   code "./root.sh"
 end
 

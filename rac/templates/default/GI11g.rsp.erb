@@ -51,7 +51,7 @@ oracle.install.responseFileVersion=/oracle/install/rspfmt_crsinstall_response_sc
 # first hostname found on the system. (e.g., for systems with multiple hostnames 
 # and network interfaces)
 #-------------------------------------------------------------------------------
-ORACLE_HOSTNAME=red1.covtest.com
+ORACLE_HOSTNAME=<%= node[:fqdn] %>
 #-------------------------------------------------------------------------------
 # Specify the location which holds the inventory files.
 # This is an optional parameter if installing on  
@@ -209,7 +209,7 @@ oracle.install.crs.config.autoConfigureClusterNodeVIP=false
 #
 # Example: oracle.install.crs.config.clusterNodes=node1:node1-vip,node2:node2-vip
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.clusterNodes=<%= @node1_name %>:<%= @node1_vip %>,<%= @node2_name %>:<%= @node2_vip %>
+oracle.install.crs.config.clusterNodes=<%= @node1_name %>:<%= @node1_vip %>,<%= @node2_name %>:<%= @node2_vip %>,<%= @node3_name %>:<%= @node3_vip %>
 
 #-------------------------------------------------------------------------------
 # The value should be a comma separated strings where each string is as shown below
@@ -338,7 +338,7 @@ oracle.install.asm.diskGroup.redundancy=NORMAL
 # size unit is MB
 #
 #-------------------------------------------------------------------------------
-oracle.install.asm.diskGroup.AUSize=1
+oracle.install.asm.diskGroup.AUSize=<%= @au_size %>
 
 
 #-------------------------------------------------------------------------------

@@ -16,16 +16,16 @@
 #
 ## Install Oracle RDBMS' dependencies.
 #
-unless node[:oracle][:grid][:deps][:flag]
+unless node[:rac][:deps][:flag]
 
-node[:oracle][:rdbms][:deps].each do |dep|
+node[:rac][:deps].each do |dep|
   yum_package dep
 end
 
 
 ruby_block 'set_gi_deps_flag' do
   block do
-    node.set[:oracle][:grid][:deps][:flag] = true
+    node.set[:rac][:deps][:flag] = true
   end
   action :create
 end

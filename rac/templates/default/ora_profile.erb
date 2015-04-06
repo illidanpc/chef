@@ -1,24 +1,8 @@
-
-
-EDITOR=/bin/vi
-ORACLE_BASE=<%= node[:oracle][:ora_base] %>
-ORACLE_HOME=<%= node[:oracle][:rdbms][:ora_home] %>
-ORACLE_SID=
-ORACLE_UNQNAME=
-ORA_ENV=<%= File.basename node[:oracle][:rdbms][:ora_home] %>
-ORACLE_HOSTNAME=`hostname -f`
-export EDITOR ORACLE_BASE ORACLE_HOME ORACLE_SID ORA_ENV ORACLE_HOSTNAME
-
-
-
-NLS_LANG=american_america.al32utf8
-export NLS_DATE_FORMAT NLS_LANG
-
-PATH=$PATH:/usr/sbin:$ORACLE_BASE/dba/bin:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch
-export PATH
-
-
-HOSTNAME=`hostname | awk -F. '{print $1}'`
-PS1='[$USER@$HOSTNAME${ORACLE_SID}]
-$PWD> '
-export PS1
+umask 022
+export ORACLE_SID=<%= @o_sid %>
+export ORACLE_BASE=<%= @o_base %>
+export ORACLE_HOME=<%= @o_home %>
+export PATH=$PATH:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch
+export NLS_DATE_FORMAT='DD-MON-YYYY HH24:MI:SS'
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$ORACLE_HOME/network/lib
+export  PS1=$(hostname)':$LOGNAME:${ORACLE_HOME##/*/}:${ORACLE_SID:-no_sid}> '

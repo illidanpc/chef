@@ -1,22 +1,17 @@
-unless node[:oracle][:grid][:is_installed]
-file "#{node[:oracle][:grid][:base]}/oraInst.loc" do
-  owner "grid"
-  group 'oinstall'
-  content "inst_group=oinstall\ninventory_loc=/g01/grid/app/oraInventory"
-end
+unless node[:rac][:grid][:is_installed]
 
 
 bash "run_gi_installer" do
-    cwd "#{node[:oracle][:rdbms][:install_dir]}/grid"
-    environment (node[:oracle][:grid][:env])  
-#    code "sudo -Eu grid ./runInstaller -showProgress -silent -waitforcompletion -force -ignorePrereq -responseFile #{node[:oracle][:rdbms][:install_dir]}/GI11g.rsp -invPtrLoc #{node[:oracle][:grid][:base]}/oraInst.loc"
-    code "sudo -Eu grid ./runInstaller -ignorePrereq -silent -force -responseFile /home/grid/grid_install_0323.rsp"
+    cwd "#{node[:rac][:install_dir]}/grid"
+    environment (node[:rac][:grid][:env])  
+#    code "sudo -Eu grid ./runInstaller -showProgress -silent -waitforcompletion -force -ignorePrereq -responseFile #{node[:rac][:rdbms][:install_dir]}/GI11g.rsp -invPtrLoc #{node[:rac][:grid][:base]}/oraInst.loc"
+    code "sudo -Eu grid ./runInstaller -ignorePrereq -silent -force -showProgress -waitforcompletion -responseFile #{node[:rac][:install_dir]}/GI11g.rsp"
     returns [0, 6]
 end
 
 ruby_block 'set_gi_flag' do
   block do
-    node.set[:oracle][:grid][:is_installed] = true
+    node.set[:rac][:grid][:is_installed] = true
   end
   action :create
 end
