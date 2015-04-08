@@ -209,8 +209,7 @@ oracle.install.crs.config.autoConfigureClusterNodeVIP=false
 #
 # Example: oracle.install.crs.config.clusterNodes=node1:node1-vip,node2:node2-vip
 #-------------------------------------------------------------------------------
-oracle.install.crs.config.clusterNodes=<%= @node1_name %>:<%= @node1_vip %>,<%= @node2_name %>:<%= @node2_vip %>,<%= @node3_name %>:<%= @node3_vip %>
-
+oracle.install.crs.config.clusterNodes=<%= @cluster_nodes %>
 #-------------------------------------------------------------------------------
 # The value should be a comma separated strings where each string is as shown below
 # InterfaceName:SubnetAddress:InterfaceType

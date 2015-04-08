@@ -1,55 +1,172 @@
 rac Cookbook
 ============
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+This Cookbook is currently install the oracle rac 3 nodes on OEL 7.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+1. set the root and grid trust with known hosts manually 
+2. set the sudo without tty
+   chmod 777 /etc/sudoers
+   vi /etc/sudoers
+   #disable tty require
+   chmod 440 /etc/sudoers
+3. If the chef client is 11.18 , you should set the no_lazy_load due to the recipe will run very long time
 
-e.g.
-#### packages
-- `toaster` - rac needs toaster to brown your bagel.
+    1) Clear the cache (/var/chef/cache/cookbooks/) so cookbook will be redownloaded
+    2) Add a line no_lazy_load = true in /etc/chef/client.rb
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
+  rac:
+    deps:
+      comp:
+        binutils
+        compat-libcap1
+        compat-libstdc++-33
+        gcc
+        gcc-c++
+        glibc
+        glibc-devel
+        ksh
+        libgcc
+        libstdc++
+        libstdc++-devel
+        libaio
+        libaio-devel
+        make
+        sysstat
+        elfutils-libelf-devel
+      flag: false
+    grid:
+      asm:
+        au_size:     1
+        dg_name:     VOTE_DISK
+        disk_string: /dev/asmdisk/*
+        flag:        false
+        ocr_dg:      /dev/asmdisk/vote_disk_01,/dev/asmdisk/vote_disk_02,/dev/asmdisk/vote_disk_03
+        pw:          Covisint123
+        sid:         +ASM1
+      base:          /u01/app/grid
+      cluster:
+        eth0_inter: 10.66.0.0
+        eth1_inter: 192.168.0.0
+        name:       ora-test-scan
+        node1:
+          fqdn:  racliu1.covisint.com
+          name:  racliu1
+          pubip: 10.66.2.178
+          vip:   racliu1-vip
+        node2:
+          fqdn:  racliu2.covisint.com
+          name:  racliu2
+          pubip: 10.66.2.177
+          vip:   racliu2-vip
+        node3:
+          fqdn:  racliu3.covisint.com
+          name:  racliu3
+          pubip: 10.66.2.176
+          vip:   racliu3-vip
+      env:
+        ORACLE_BASE: /u01/app/grid
+        ORACLE_HOME: /u01/11.2.0/grid
+        PATH:        /usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/u01/app/grid/bin:/u01/11.2.0/grid/OPatch
+      gf:
+        flag: false
+      home:          /u01/11.2.0/grid
+      install_files: /sft/p13390677_112040_Linux-x86-64_3of7.zip
+      inventory:     /u01/app/oraInventory
+      is_installed:  false
+      root:
+        flag: false
+      scan:
+        name: ora-test-scan
+        port: 1521
+      slave:
+        flag: false
+      udev:
+        flag: false
+      user:
+        pw:       grid
+        pw_set:   false
+        sup_grps:
+          asmadmin: 5000
+          asmdba:   5001
+          asmoper:  5002
+          dba:      202
+        uid:      301
+    install_dir:  /s01
+    install_info:
+    kernel:
+      flag: false
+    oracle:
+      base:      /u01/app/oracle
+      dbname:    chefming
+      home:      /u01/app/oracle/product/11.2.0/db_1
+      inventory: /u01/app/oraInventory
+      sid:       chefming1
+      user:
+        gid:      201
+        pw:       oracle
+        pw_set:   false
+        shell:    /bin/ksh
+        sup_grps:
+          asmdba: 5001
+          dba:    202
+        uid:      201
+    rdbms:
+      asmsys_pw:          dba123
+      db_create_template: default_template.dbt
+      dbbin_version:      11g
+      dbconsole:
+        emconfig:           true
+        notification_email: foo@bar.inet
+        outgoing_mail:      mailhost
+        sysman_pw:          sysman_pw_goes_here
+      dbs:
+      dbs_root:           /d01/oradata
+      dbsnmp_pw:          dba123
+      env:
+        ORACLE_BASE: /u01/app/oracle
+        ORACLE_HOME: /u01/app/oracle/product/11.2.0/db_1
+        PATH:        /usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/u01/app/oracle/dba/bin:/u01/app/oracle/product/11.2.0/db_1/bin:/u01/app/oracle/product/11.2.0/db_1/OPatch
+      install_files:
+        /sft/p13390677_112040_Linux-x86-64_1of7.zip
+        /sft/p13390677_112040_Linux-x86-64_2of7.zip
+      is_installed:       false
+      latest_patch:
+        dirname:      16619892
+        is_installed: true
+        url:          /sft/p13390677_112040_Linux-x86-64.zip
+      opatch_update_url:  /sft/p13390677_112040_Linux-x86-64.zip
+      response_file_url:  
+      sys_pw:             dba123
+      system_pw:          dba123
+    sid:
+      flag: false
+    user:
+      flag: false
 
-e.g.
-#### rac::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['rac']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+
 
 Usage
 -----
-#### rac::default
-TODO: Write usage instructions for each cookbook.
+knife create role rac_primary
+"recipe[rac::gi_folders]","recipe[rac::ohas]","recipe[rac::gi_setup]","recipe[rac::gi_root]","recipe[rac::cfg]","recipe[rac::asm]","recipe[rac::oracle_setup]","recipe[rac::dbca]"
 
-e.g.
-Just include `rac` in your node's `run_list`:
+knife create role rac_slave
+"recipe[rac::slave_folder]","recipe[rac::ohas]"
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[rac]"
-  ]
-}
-```
+knife bootstrap 10.66.2.178
+knife node run_list add racliu1.covisint.com 'role[rac_priamry]'
+
+knife bootstrap 10.66.2.177
+knife node run_list add racliu2.covisint.com 'role[rac_slave]'
+
+knife bootstrap 10.66.2.176
+knife node run_list add racliu3.covisint.com 'role[rac_slave]'
+
+Node2,node3 run the chef-client first.
+Then node1 run the chef-client. It may takes long time .
 
 Contributing
 ------------
@@ -65,4 +182,4 @@ e.g.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Illidan Zhu

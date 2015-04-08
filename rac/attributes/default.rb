@@ -31,6 +31,8 @@ default[:rac][:grid][:cluster][:name]= 'ora-test-scan'
 default[:rac][:grid][:cluster][:node1]= {'name' => 'racliu1', 'fqdn' => 'racliu1.covisint.com', 'vip' => 'racliu1-vip', 'pubip' => '10.66.2.178'}
 default[:rac][:grid][:cluster][:node2]= {'name' => 'racliu2', 'fqdn' => 'racliu2.covisint.com','vip' => 'racliu2-vip', 'pubip' => '10.66.2.177'}
 default[:rac][:grid][:cluster][:node3]= {'name' => 'racliu3', 'fqdn' => 'racliu3.covisint.com','vip' => 'racliu3-vip', 'pubip' => '10.66.2.176'}
+default[:rac][:grid][:cluster][:node4]= {'name' => '', 'fqdn' => '','vip' => '', 'pubip' => ''}
+default[:rac][:grid][:cluster][:node5]= {'name' => '', 'fqdn' => '','vip' => '', 'pubip' => ''}
 default[:rac][:grid][:cluster][:eth0_inter] = '10.66.0.0'
 default[:rac][:grid][:cluster][:eth1_inter] = '192.168.0.0'
 
@@ -130,10 +132,10 @@ default[:rac][:user][:flag]=false
 default[:rac][:kernel][:flag]=false
 default[:rac][:grid][:udev][:flag]=false
 default[:rac][:grid][:gf][:flag]=false
-default[:rac][:rdbms][:is_installed] = false
 default[:rac][:grid][:is_installed] = false
 default[:rac][:deps][:flag]=false
 default[:rac][:sid][:flag]=false
 default[:rac][:grid][:slave][:flag]=false
 default[:rac][:grid][:root][:flag]=false
 default[:rac][:grid][:asm][:flag]=false
+default[:rac][:rdbms][:is_installed] = false

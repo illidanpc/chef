@@ -30,6 +30,16 @@ execute "chown_back_to_oracle" do
   command "chown -R oracle.oinstall /u01/app/oracle"
 end
 
+ruby_block 'nodes_loop' do
+  block do
+   [node[:rac][:grid][:cluster][:node1],node[:rac][:grid][:cluster][:node1],node[:rac][:grid][:cluster][:node1]].each do |nodes|
+       x = nodes['fqdn'] + ":" + nodes['vip']
+    end
+  end
+  action :create
+end
+
+
 
 # GI rsp template.
 template "#{node[:rac][:install_dir]}/GI11g.rsp" do
@@ -44,12 +54,7 @@ template "#{node[:rac][:install_dir]}/GI11g.rsp" do
     :scan_name => node[:rac][:grid][:scan][:name],
     :scan_port => node[:rac][:grid][:scan][:port],
     :cluster_name => node[:rac][:grid][:cluster][:name],
-    :node1_name => node[:rac][:grid][:cluster][:node1][:fqdn],
-    :node1_vip => node[:rac][:grid][:cluster][:node1][:vip],
-    :node2_name => node[:rac][:grid][:cluster][:node2][:fqdn],
-    :node2_vip => node[:rac][:grid][:cluster][:node2][:vip],
-    :node3_name => node[:rac][:grid][:cluster][:node3][:fqdn],
-    :node3_vip => node[:rac][:grid][:cluster][:node3][:vip],
+    :cluster_nodes => node[:rac][:grid][:cluster][:node1][:fqdn] + ":" + node[:rac][:grid][:cluster][:node1][:vip]
     :eth0_inter => node[:rac][:grid][:cluster][:eth0_inter],
     :eth1_inter => node[:rac][:grid][:cluster][:eth1_inter],
     :dg_name => node[:rac][:grid][:asm][:dg_name],
@@ -82,4 +87,5 @@ ruby_block 'set_gf_flag' do
   end
   action :create
 end
+
 end
