@@ -8,9 +8,14 @@ end
 
 
 #Install latest OPatch version (on both GI Home(as grid user) and RDBMS Home(as oracle user)
-execute "rm_old_opatch" do
-	command "rm -rf OPatch/"
-	cwd "/u01/11.2.0/grid"
+execute "rm_old_grid_opatch" do
+	command "rm -rf *"
+	cwd "/u01/11.2.0/grid/OPatch"
+end
+
+execute "rm_old_oracle_opatch" do
+	command "rm -rf *"
+	cwd "/u01/app/oracle/product/11.2.0/db_1/OPatch"
 end
 
 execute "unzip_opatch_grid" do
@@ -22,7 +27,7 @@ end
 
 execute "unzip_opatch_oracle" do
     command "unzip -u /tmp/p6880880_112000_Linux-x86-64.zip"
-    user "grid"
+    user "oracle"
     group 'oinstall'
     cwd '/u01/app/oracle/product/11.2.0/db_1/'
 end

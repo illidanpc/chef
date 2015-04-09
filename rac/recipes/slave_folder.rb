@@ -1,7 +1,7 @@
-unless node[:rac][:grid][:slave][:flag]
+unless node['rac']['grid']['slave']['flag']
 
 #setting GI home
-[node[:rac][:grid][:base], node[:rac][:grid][:home],node[:rac][:grid][:inventory],node[:rac][:install_dir]].each do |dir|
+[node['rac']['grid']['base'], node['rac']['grid']['home'],node['rac']['grid']['inventory'],node['rac']['install_dir']].each do |dir|
   directory dir do
     owner 'grid'
     group 'oinstall'
@@ -12,7 +12,7 @@ unless node[:rac][:grid][:slave][:flag]
 end
 
 #setting oracle home
-[node[:rac][:oracle][:base], node[:rac][:oracle][:home],node[:rac][:oracle][:inventory],node[:rac][:install_dir]].each do |dir|
+[node['rac']['oracle']['base'], node['rac']['oracle']['home'],node['rac']['oracle']['inventory'],node['rac']['install_dir']].each do |dir|
   directory dir do
     owner 'oracle'
     group 'oinstall'
@@ -32,7 +32,7 @@ end
 
 ruby_block 'set_slave_flag' do
   block do
-    node.set[:rac][:grid][:slave][:flag] = true
+    node.set['rac']['grid']['slave']['flag'] = true
   end
   action :create
 end
