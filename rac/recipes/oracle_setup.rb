@@ -21,9 +21,7 @@ template "#{node[:rac][:install_dir]}/db11R2.rsp" do
     :INVENTORY_LOCATION => node[:rac][:oracle][:inventory],
     :ORACLE_BASE => node[:rac][:oracle][:base],
     :ORACLE_HOME => node[:rac][:oracle][:home],
-    :node1_name => node[:rac][:grid][:cluster][:node1][:name],
-    :node2_name => node[:rac][:grid][:cluster][:node2][:name],
-    :node3_name => node[:rac][:grid][:cluster][:node3][:name]
+    :cluster_nodes => node[:rac][:grid][:cluster][:node1][:name]
     )
 end
 
@@ -40,13 +38,13 @@ execute 'root_rdbms_node1' do
     command "#{node[:rac][:oracle][:home]}/root.sh"
   end
 
-execute "root_rdbms_node2" do
-  command "ssh #{node[:rac][:grid][:cluster][:node2][:name]} #{node[:rac][:oracle][:home]}/root.sh"
-end
+#execute "root_rdbms_node2" do
+#  command "ssh #{node[:rac][:grid][:cluster][:node2][:name]} #{node[:rac][:oracle][:home]}/root.sh"
+#end
 
-execute "root_rdbms_node3" do
-  command "ssh #{node[:rac][:grid][:cluster][:node3][:name]} #{node[:rac][:oracle][:home]}/root.sh"
-end
+#execute "root_rdbms_node3" do
+#  command "ssh #{node[:rac][:grid][:cluster][:node3][:name]} #{node[:rac][:oracle][:home]}/root.sh"
+#end
 
 
   ruby_block 'set_rdbms_install_flag' do

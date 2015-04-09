@@ -54,7 +54,7 @@ template "#{node[:rac][:install_dir]}/GI11g.rsp" do
     :scan_name => node[:rac][:grid][:scan][:name],
     :scan_port => node[:rac][:grid][:scan][:port],
     :cluster_name => node[:rac][:grid][:cluster][:name],
-    :cluster_nodes => node[:rac][:grid][:cluster][:node1][:fqdn] + ":" + node[:rac][:grid][:cluster][:node1][:vip]
+    :cluster_nodes => node[:rac][:grid][:cluster][:node1][:fqdn] + ":" + node[:rac][:grid][:cluster][:node1][:vip],
     :eth0_inter => node[:rac][:grid][:cluster][:eth0_inter],
     :eth1_inter => node[:rac][:grid][:cluster][:eth1_inter],
     :dg_name => node[:rac][:grid][:asm][:dg_name],
