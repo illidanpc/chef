@@ -32,7 +32,11 @@ execute "unzip_opatch_oracle" do
     cwd '/u01/app/oracle/product/11.2.0/db_1/'
 end
 
-
+execute "unzip_patch_zip" do
+    command "unzip -u /tmp/p19955028_112040_Linux-x86-64.zip"
+    user "grid"
+    group 'oinstall'
+end
 #create a response file for silent install
 
 

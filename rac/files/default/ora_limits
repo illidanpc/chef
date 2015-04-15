@@ -1,36 +1,5 @@
-# Oracle-Validated setting for nofile soft limit is 131072
-oracle soft nofile 131072
-# Oracle-Validated setting for nofile hard limit is 131072
-oracle hard nofile 131072
-# Oracle-Validated setting for nproc soft limit is 131072
-oracle soft nproc 131072
-# Oracle-Validated setting for nproc hard limit is 131072
-oracle hard nproc 131072
-# Oracle-Validated setting for core soft limit is unlimited
-oracle soft core unlimited
-# Oracle-Validated setting for core hard limit is unlimited
-oracle hard core unlimited
-# Oracle-Validated setting for memlock soft limit is 50000000
-oracle soft memlock 50000000
-# Oracle-Validated setting for memlock hard limit is 50000000
-oracle hard memlock 50000000
------
-# add same setting for grid
------
-# grid-Validated setting for nofile soft limit is 131072
-grid soft nofile 131072
-# grid-Validated setting for nofile hard limit is 131072
-grid hard nofile 131072
-# grid-Validated setting for nproc soft limit is 131072
-grid soft nproc 131072
-# grid-Validated setting for nproc hard limit is 131072
-grid hard nproc 131072
-# grid-Validated setting for core soft limit is unlimited
-grid soft core unlimited
-# grid-Validated setting for core hard limit is unlimited
-grid hard core unlimited
-# grid-Validated setting for memlock soft limit is 50000000
-grid soft memlock 50000000
-# grid-Validated setting for memlock hard limit is 50000000
-grid hard memlock 50000000
------
+@dba  soft nproc 131072
+@dba  hard nproc 131072
+@dba  soft nofile 131072
+@dba  hard nofile 131072
+@dba  soft stack 10240 

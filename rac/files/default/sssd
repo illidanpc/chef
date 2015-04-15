@@ -1,0 +1,43 @@
+[sssd]
+config_file_version = 2
+services = nss, sudo, pam
+domains = default
+[nss]
+filter_groups = root
+filter_users = root
+entry_cache_nowait_percentage = 50
+entry_negative_timeout = 10
+[pam]
+pam_id_timeout = 300
+pam_pwd_expiration_warning = 15
+[sudo]
+[domain/default]
+id_provider = ldap
+auth_provider = ldap
+chpass_provider = ldap
+sudo_provider = ldap
+ldap_uri = ldap://ds3.dtw.covisint.com, ldap://ds1.dtw.covisint.com, ldap://ds2.dtw.covisint.com
+ldap_id_use_start_tls = True
+cache_credentials = True
+entry_cache_timeout = 15
+enumerate = False
+ldap_search_base = dc=covisint,dc=com
+ldap_tls_cacertdir = /etc/openldap/cacerts
+ldap_tls_reqcert = allow
+ldap_default_bind_dn = cn=serveragent,ou=profile,dc=covisint,dc=com
+ldap_default_authtok_type = password
+ldap_default_authtok = c0v53cr3t
+ldap_search_timeout = 30
+ldap_network_timeout = 6
+ldap_opt_timeout = 10
+ldap_user_search_base = ou=people,dc=covisint,dc=com
+ldap_group_search_base = ou=groups, dc=covisint,dc=com
+ldap_netgroup_search_base = ou=netgroup, dc=covisint,dc=com
+ldap_sudo_search_base = ou=SUDoers, dc=covisint,dc=com
+ldap_pwd_policy = none
+ldap_access_order = expire 
+ldap_sudo_full_refresh_interval = 600
+ldap_sudo_smart_refresh_interval = 300
+krb5_realm = #
+
+

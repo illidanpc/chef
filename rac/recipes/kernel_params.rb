@@ -1,22 +1,4 @@
-#
-# Cookbook Name:: oracle
-# Recipe:: kernel_params
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-#
-## Configure kernel parameters for Oracle RDBMS.
-#
+
 unless node[:rac][:kernel][:flag]
 
 bash 'sysctl_reload' do
@@ -24,12 +6,24 @@ bash 'sysctl_reload' do
   action :nothing
 end
 
-directory '/etc/sysctl.d' do
-  mode '0755'
+bash 'cal_param1' do
+	code "echo $\"((`free |grep Mem | awk '{print $2}'`*0.7 /`/usr/bin/getconf PAGE_SIZE`))\" |bc -l | awk -F'.' '{print $1}'"
+	action :nothing
 end
 
-cookbook_file '/etc/sysctl.d/ora_params' do
+bash 'cal_param2' do
+	code "echo $\"((`free |grep Mem | awk '{print $2}'`/2))\" |bc -l | awk -F'.' '{print $1}'"
+	action :nothing
+end
+
+
+template '/etc/sysctl.conf' do
+  source 'ora_param.erb'
   mode '0644'
+  variables(
+  	:shmall => 'bash[cal_param1]' ,
+  	:shmmax => 'bash[cal_param2]'
+  	)
   notifies :run, 'bash[sysctl_reload]', :immediately
 end
 
