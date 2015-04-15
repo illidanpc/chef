@@ -5,10 +5,10 @@
 #
 
 ## Settings specific to the grid and oracle user in OS .
-default['rac']['oracle']['user']['uid'] = 201
-default['rac']['oracle']['user']['gid'] = 201
+default['rac']['oracle']['user']['uid'] = 502
+default['rac']['oracle']['user']['gid'] = 501
 default['rac']['oracle']['user']['shell'] = '/bin/ksh'
-default['rac']['oracle']['user']['sup_grps'] = {'dba' => 202,'asmdba'=> 5001}
+default['rac']['oracle']['user']['sup_grps'] = {'dba' => 202,'asmdba'=> 506}
 default['rac']['oracle']['user']['pw_set'] = false
 default['rac']['oracle']['user']['pw']='oracle'
 
@@ -17,8 +17,8 @@ default['rac']['oracle']['user']['pw']='oracle'
 #default['rac']['user']['edb_item'] = 'foo' #test only for the databag 
 default['rac']['grid']['user']['pw_set'] = false
 default['rac']['grid']['user']['pw']='grid'
-default['rac']['grid']['user']['uid']= 301
-default['rac']['grid']['user']['sup_grps']= {'dba'=>202, 'asmadmin' =>5000, 'asmdba'=> 5001,'asmoper'=>5002}
+default['rac']['grid']['user']['uid']= 501
+default['rac']['grid']['user']['sup_grps']= {'dba'=>502, 'asmadmin' =>504, 'asmdba'=> 506,'asmoper'=>507}
 
 
 

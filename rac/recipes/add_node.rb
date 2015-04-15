@@ -25,5 +25,5 @@ execute "root_rdbms_new_node" do
 end
 
 execute "add_instance" do
-	command "ssh #{node['rac']['grid']['cluster']['node1']['name']} sudo -Eu oracle #{node['rac]['oracle]['home']}/bin/dbca -silent -addInstance -nodeList #{node['rac']['grid']['cluster']['new_node']['name']} -gdbName #{node['rac]['oracle]['dbname']} -instanceName #{node['rac']['oracle']['sid']} -sysDBAUserName sys -sysDBAPassword #{node['rac]['rdbms]['sys_pw]} "
+	command "ssh #{node['rac']['grid']['cluster']['node1']['name']} sudo -Eu oracle #{node['rac]['oracle]['home']}/bin/dbca -silent -addInstance -nodeList #{node['rac']['grid']['cluster']['new_node']['name']} -gdbName #{node['rac]['oracle]['dbname']} -instanceName #{node['rac']['oracle']['sid']} -sysDBAUserName sys -sysDBAPassword #{node['rac]['rdbms]['sys_pw']} "
 end
