@@ -1,5 +1,9 @@
 # Set ldap
-echo 'sudoers: files sss' >>  /etc/nsswitch.conf
+
+cookbook_file '/etc/nsswitch.conf' do
+  mode '0600'
+  source 'nss'
+end
 
 cookbook_file '/etc/sssd/sssd.conf' do
   mode '0600'
