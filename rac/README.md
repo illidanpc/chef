@@ -1,6 +1,6 @@
 rac Cookbook
 ============
-This Cookbook is currently install the oracle rac 3 nodes on OEL 7.
+This Cookbook is currently install the oracle rac multi-nodes on OEL 7.
 
 Requirements
 ------------
@@ -14,7 +14,11 @@ Requirements
 
     1) Clear the cache (/var/chef/cache/cookbooks/) so cookbook will be redownloaded
     2) Add a line no_lazy_load = true in /etc/chef/client.rb
-
+4. If you meet the ssh environment problem, you can create a file 
+   ~/.ssh/config: (locally)
+   add line "SendEnv IGNORE_PREADDNODE_CHECKS"
+   /etc/ssh/sshd_config (remote)
+   add line "AcceptEnv IGNORE_PREADDNODE_CHECKS"
 Attributes
 ----------
   rac:

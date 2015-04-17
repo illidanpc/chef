@@ -1,15 +1,15 @@
 
 unless node[:rac][:kernel][:flag]
 
-bash 'sysctl_reload' do
-  code 'sysctl -p'
-  action :nothing
-end
 
 cookbook_file '/etc/sysctl.conf' do
   source 'ora_params'
   mode '0644'
   notifies :run, 'bash[sysctl_reload]', :immediately
+end
+
+execute 'cleanup_shm' do
+  command "rm -rf /tmp/shm*"
 end
 
 bash 'cal_param1' do
@@ -21,11 +21,15 @@ bash 'cal_param2' do
 end
 
 bash 'cal_param3' do
-  code "echo kernel.shmall = `cat /tmp/shmall` >> /etc/sysctl.conf"
+  code "echo \nkernel.shmall = `cat /tmp/shmall` >> /etc/sysctl.conf"
 end
 
 bash 'cal_param4' do
-  code "echo kernel.shmmax = `cat /tmp/shmmax` >> /etc/sysctl.conf "
+  code "echo \nkernel.shmmax = `cat /tmp/shmmax` >> /etc/sysctl.conf "
+end
+
+bash 'sysctl_reload' do
+  code 'sysctl -p'
 end
 
 

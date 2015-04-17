@@ -31,8 +31,8 @@ execute 'format_xvdg1' do
 	command "fdisk /dev/xvdg1"
 end
 
-template "etc/udev/rules.d/99-oracle-asmdevices.rules" do
-   mode '0750'
+template "/etc/udev/rules.d/99-oracle-asmdevices.rules" do
+   mode '0640'
    source 'udev_rules'
    variables(
    	:prefix => node['rac']['oracle']['dbname']
