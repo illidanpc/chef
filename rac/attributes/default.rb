@@ -45,9 +45,9 @@ default['rac']['oracle']['inventory'] = '/u01/app/oraInventory'
 default['rac']['oracle']['dbname'] = ''
 default['rac']['oracle']['sid'] = ''
 
-default['rac']['grid']['base'] = '/g01/app/grid'
-default['rac']['grid']['home'] = '/g01/11.2.0/grid'
-default['rac']['grid']['inventory'] = '/g01/app/oraInventory'
+default['rac']['grid']['base'] = '/u01/app/grid'
+default['rac']['grid']['home'] = '/u01/11.2.0/grid'
+default['rac']['grid']['inventory'] = '/u01/app/oraInventory'
 default['rac']['install_info'] = {}
 default['rac']['install_dir'] = "/s01"
 

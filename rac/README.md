@@ -154,19 +154,13 @@ knife create role rac_primary
 "recipe[rac::gi_folders]","recipe[rac::ohas]","recipe[rac::gi_setup]","recipe[rac::gi_root]","recipe[rac::cfg]","recipe[rac::asm]","recipe[rac::oracle_setup]","recipe[rac::dbca]"
 
 knife create role rac_slave
-"recipe[rac::slave_folder]","recipe[rac::ohas]"
+"recipe[rac::slave_folder]","recipe[rac::ohas]","recipe[rac::add_node]"
 
-knife bootstrap 10.66.2.178
-knife node run_list add racliu1.covisint.com 'role[rac_priamry]'
 
-knife bootstrap 10.66.2.177
-knife node run_list add racliu2.covisint.com 'role[rac_slave]'
+knife bootstrap 10.66.2.178 -r 'role[rac_primary]' -j '{"rac" : {"grid": {"cluster": {"node1" : {"name" : "racliu1", "fqdn" : "racliu1.covisint.com" , "vip":"racliu1-vip"}}}, "oracle":{"dbname" : "chefming","sid" : "chefming1"}}}' 
 
-knife bootstrap 10.66.2.176
-knife node run_list add racliu3.covisint.com 'role[rac_slave]'
+knife bootstrap 10.66.2.177 -r 'role[rac_slave]' -j '{"rac" : {"grid": {"cluster": {"node1" : {"name" : "racliu1", "fqdn" : "racliu1.covisint.com" , "vip":"racliu1-vip"},"new_node":{"name" : "racliu2", "fqdn" : "racliu2.covisint.com" , "vip":"racliu2-vip"}}},"oracle":{"dbname":"chefming","sid":"chefming2"}}}' 
 
-Node2,node3 run the chef-client first.
-Then node1 run the chef-client. It may takes long time .
 
 Contributing
 ------------

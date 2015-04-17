@@ -21,7 +21,7 @@ user 'oracle' do
   supports :manage_home => true
 end
 
-yum_package File.basename(node[:rac][:oracle][:user][:shell])
+#yum_package File.basename(node[:rac][:oracle][:user][:shell])
 
 # Configure the oracle user.
 # Make it a member of the appropriate supplementary groups, and
@@ -58,9 +58,9 @@ template "/home/oracle/.profile" do
   owner 'oracle'
   group 'oinstall'
   variables(
-    :o_home=> node[:rac][:grid][:home],
-    :o_base=> node[:rac][:grid][:base],
-    :o_sid=> node[:rac][:grid][:asm][:sid]
+    :o_home=> node[:rac][:oracle][:home],
+    :o_base=> node[:rac][:oracle][:base],
+    :o_sid=> node[:rac][:oracle][:sid]
     )
 end
 

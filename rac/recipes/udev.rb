@@ -34,6 +34,9 @@ end
 template "etc/udev/rules.d/99-oracle-asmdevices.rules" do
    mode '0750'
    source 'udev_rules'
+   variables(
+   	:prefix => node['rac']['oracle']['dbname']
+   	)
    notifies :run, 'bash[udev_start]', :immediately
 end
 

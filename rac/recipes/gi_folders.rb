@@ -66,7 +66,7 @@ execute "unzip_grid_media" do
 end
 
 execute 'cvuqdisk_package' do
-  command 'rpm -Uvh #{node['rac']['install_dir']}/grid/rpm/cvuqdisk-1.0.9-1.rpm '
+  command "rpm -Uvh #{node['rac']['install_dir']}/grid/rpm/cvuqdisk-1.0.9-1.rpm "
   returns [0,1]
 end
 
