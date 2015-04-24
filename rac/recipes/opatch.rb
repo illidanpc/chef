@@ -33,7 +33,7 @@ execute "unzip_opatch_oracle" do
 end
 
 execute "unzip_patch_zip" do
-    command "unzip -u /tmp/p19955028_112040_Linux-x86-64.zip"
+    command "unzip -u /tmp/gi_patch/p19955028_112040_Linux-x86-64.zip"
     user "grid"
     group 'oinstall'
 end
